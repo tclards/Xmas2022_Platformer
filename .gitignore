@@ -5,3 +5,5 @@
 /Library
 /.vs
 /obj
+/Assembly-CSharp.csproj
+/Platformer_01.sln
