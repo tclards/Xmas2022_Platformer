@@ -360,13 +360,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 868174302}
+  - component: {fileID: 868174303}
   - component: {fileID: 868174301}
   - component: {fileID: 868174300}
   - component: {fileID: 868174299}
-  - component: {fileID: 868174303}
   m_Layer: 0
   m_Name: Player_01
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -497,6 +497,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3796fc62cdb191a4095689eaa6409200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iJumpForce: 6
+  iJumpsAllowed: 3
+  rb: {fileID: 868174300}
+  iTimesJumped: 0
+  bIsGrounded: 0
 --- !u!1 &948462762
 GameObject:
   m_ObjectHideFlags: 0
