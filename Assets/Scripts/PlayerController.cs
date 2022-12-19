@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Components")]
     [Header("---------------------------")]
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Animator anim;
 
     [Header("Player Tracking Variables (Do Not Edit)")]
     [Header("---------------------------")]
@@ -29,8 +30,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // Movement Code
-
         // Horizontal Movement
         float dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
@@ -39,6 +38,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
+        }
+
+        // Running Animation
+        if (dirX > 0f)
+        {
+            anim.SetBool("bRunning", true);
+        }
+        else if (dirX < 0)
+        {
+            anim.SetBool("bRunning", true);
+        }
+        else
+        {
+            anim.SetBool("bRunning", false);
         }
     }
 
