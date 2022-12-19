@@ -7,28 +7,28 @@ public class PlayerController : MonoBehaviour
     #region Player Attributes, Components, & Tracking Variables
     [Header("Player Attributes")]
     [Header("---------------------------")]
-    [Range(5, 12)][SerializeField] int iJumpForce;                           // Player Jump Height
+    [Range(5, 15)][SerializeField] int iJumpForce;                           // Player Jump Height
     [Range(1, 3)][SerializeField] int iJumpsAllowed;                         // Number of jumps allowed
 
     [Header("Player Components")]
     [Header("---------------------------")]
-    [SerializeField] Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
 
     [Header("Player Tracking Variables (Do Not Edit)")]
     [Header("---------------------------")]
-    [SerializeField] int iTimesJumped;
-    [SerializeField] bool bIsGrounded = false;
+    [SerializeField] private int iTimesJumped;
+    [SerializeField] private bool bIsGrounded = false;
 
     #endregion
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Movement Code
         bIsGrounded = PlayerGrounded();   // Helper function to determine when player is on ground vs in the air
@@ -45,11 +45,11 @@ public class PlayerController : MonoBehaviour
         }
 
 
+
     }
 
     #region Helper Functions
-
-    bool PlayerGrounded()       // Determines if player is on ground or if player is falling/jumping
+    private bool PlayerGrounded()       // Determines if player is on ground or if player is falling/jumping
     {
         if (rb.velocity.y == 0)
         {
