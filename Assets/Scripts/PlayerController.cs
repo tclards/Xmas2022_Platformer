@@ -5,6 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Player Attributes, Components, & Tracking Variables
+
+    // Extra Player Tracking Variables
+    private float dirX;
+    private enum MovementState { idle, running, jumping, falling };
+
     [Header("Player Attributes")]
     [Header("---------------------------")]
     [Range(5, 15)][SerializeField] int iJumpForce;                           // Player Jump Height
@@ -19,9 +24,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Tracking Variables (Do Not Edit)")]
     [Header("---------------------------")]
     [SerializeField] private bool bIsGrounded;
-
-    // Extra Player Tracking Variables
-    private float dirX;
+    [SerializeField] private MovementState movementState;
 
     #endregion
 
@@ -53,21 +56,34 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimations()
     {
+        MovementState state;
+
         // Running Animation
         if (dirX > 0f) // right
         {
-            anim.SetBool("bRunning", true);
+            state = MovementState.running;
             sp.flipX = false;
         }
         else if (dirX < 0) // left
         {
-            anim.SetBool("bRunning", true);
+            state = MovementState.running;
             sp.flipX = true;
         }
-        else
+        else // idle
         {
-            anim.SetBool("bRunning", false);
+            state = MovementState.idle;
         }
+
+        if (rb.velocity.y > 0.1f)   // jumping
+        {
+            state = MovementState.jumping;
+        }
+        else if (rb.velocity.y < -0.1f) // falling
+        {
+            state = MovementState.falling;
+        }
+
+        anim.SetInteger("MovementState", (int)state);
     }
 
     #endregion
