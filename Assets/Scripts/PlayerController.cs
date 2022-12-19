@@ -14,10 +14,14 @@ public class PlayerController : MonoBehaviour
     [Header("---------------------------")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer sp;
 
     [Header("Player Tracking Variables (Do Not Edit)")]
     [Header("---------------------------")]
     [SerializeField] private bool bIsGrounded;
+
+    // Extra Player Tracking Variables
+    private float dirX;
 
     #endregion
 
@@ -31,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Horizontal Movement
-        float dirX = Input.GetAxisRaw("Horizontal");
+        dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
 
         // Jump Movement
@@ -40,22 +44,31 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
         }
 
+        // Update Animations
+        UpdateAnimations();
+
+    }
+
+    #region Helper Functions
+
+    private void UpdateAnimations()
+    {
         // Running Animation
-        if (dirX > 0f)
+        if (dirX > 0f) // right
         {
             anim.SetBool("bRunning", true);
+            sp.flipX = false;
         }
-        else if (dirX < 0)
+        else if (dirX < 0) // left
         {
             anim.SetBool("bRunning", true);
+            sp.flipX = true;
         }
         else
         {
             anim.SetBool("bRunning", false);
         }
     }
-
-    #region Helper Functions
 
     #endregion
 }

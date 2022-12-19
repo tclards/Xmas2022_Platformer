@@ -503,6 +503,7 @@ MonoBehaviour:
   fMovementSpeed: 10
   rb: {fileID: 868174300}
   anim: {fileID: 868174304}
+  sp: {fileID: 868174301}
   bIsGrounded: 0
 --- !u!95 &868174304
 Animator:
