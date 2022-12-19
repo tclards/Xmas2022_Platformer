@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         // Movement Code
 
         // Horizontal Movement
-        float dirX = Input.GetAxis("Horizontal");
+        float dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
 
         // Jump Movement
