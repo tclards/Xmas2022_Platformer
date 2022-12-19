@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Attributes")]
     [Header("---------------------------")]
     [Range(5, 15)][SerializeField] int iJumpForce;                           // Player Jump Height
-    [Range(1, 3)][SerializeField] int iJumpsAllowed;                         // Number of jumps allowed
+    [Range(5, 25)][SerializeField] float fMovementSpeed;                     // Player Movement Speed
 
     [Header("Player Components")]
     [Header("---------------------------")]
@@ -16,8 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Tracking Variables (Do Not Edit)")]
     [Header("---------------------------")]
-    [SerializeField] private int iTimesJumped;
-    [SerializeField] private bool bIsGrounded = false;
+    [SerializeField] private bool bIsGrounded;
 
     #endregion
 
@@ -31,37 +30,19 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Movement Code
-        bIsGrounded = PlayerGrounded();   // Helper function to determine when player is on ground vs in the air
-        if (bIsGrounded)
+
+        // Horizontal Movement
+        float dirX = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
+
+        // Jump Movement
+        if (Input.GetButtonDown("Jump"))
         {
-            iTimesJumped = 0;
+            rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
         }
-
-        if (Input.GetButtonDown("Jump") && iTimesJumped < iJumpsAllowed) // Jump - Space Key
-        {
-            iTimesJumped++;
-
-            rb.velocity = new Vector3(0, iJumpForce, 0);
-        }
-
-
-
     }
 
     #region Helper Functions
-    private bool PlayerGrounded()       // Determines if player is on ground or if player is falling/jumping
-    {
-        if (rb.velocity.y == 0)
-        {
-            bIsGrounded = true;
-        }
-        else if (rb.velocity.y != 0)
-        {
-            bIsGrounded = false;
-        }
-
-        return bIsGrounded;
-    }
 
     #endregion
 }
