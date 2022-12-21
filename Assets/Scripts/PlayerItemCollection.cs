@@ -10,10 +10,13 @@ public class PlayerItemCollection : MonoBehaviour
     [Header("Do Not Edit")]
     [Header("------------------------")]
     [SerializeField] Transform playerPOS;
+    [SerializeField] private int iCoins = 0;
 
     private void Start()
     {
         CollectionAnimation.SetActive(false);
+
+
     }
 
     private void Update()
@@ -27,6 +30,7 @@ public class PlayerItemCollection : MonoBehaviour
         {
             
             Destroy(collision.gameObject);  //destroy object
+            iCoins++;   // count coins collected
 
             // Play Animation for pickup
             StartCoroutine(Wait());

@@ -22,11 +22,6 @@ public class CollectableItemMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (transform.position.y > fStartPos + fMoveDistance || transform.position.y < fStartPos - fMoveDistance)
-        //{
-        //    transform.position = new Vector3(transform.position.x, fStartPos, transform.position.z);
-        //}
-
         Loop();
     }
 

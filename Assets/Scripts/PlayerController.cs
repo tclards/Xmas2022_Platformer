@@ -42,12 +42,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        bIsGrounded = IsGrounded();
+
         // Horizontal Movement
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
 
         // Jump Movement
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetButtonDown("Jump") && bIsGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
         }
