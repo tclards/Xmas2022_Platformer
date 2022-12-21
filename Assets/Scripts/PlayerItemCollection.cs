@@ -4,13 +4,42 @@ using UnityEngine;
 
 public class PlayerItemCollection : MonoBehaviour
 {
+    [SerializeField] GameObject CollectionAnimation;
+    [Range(0f,10f)][SerializeField] private float WaitTime;
+
+    [Header("Do Not Edit")]
+    [Header("------------------------")]
+    [SerializeField] Transform playerPOS;
+
+    private void Start()
+    {
+        CollectionAnimation.SetActive(false);
+    }
+
+    private void Update()
+    {
+        CollectionAnimation.transform.position = playerPOS.position;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("CoinCollectable"))
         {
+            
             Destroy(collision.gameObject);  //destroy object
 
-
+            // Play Animation for pickup
+            StartCoroutine(Wait());
         }
     }
+
+    IEnumerator Wait()
+    {
+        CollectionAnimation.SetActive(true);
+
+        yield return new WaitForSeconds(WaitTime);
+
+        CollectionAnimation.SetActive(false);
+    }
+
 }

@@ -8,6 +8,9 @@ public class CollectableItemMovement : MonoBehaviour
 
     [Range(0, 5)][SerializeField] private float fMoveDistance;  // distance at which item will jiggle
     [Range(0, 5)][SerializeField] private float fMoveSpeed;     // speed at which item will jiggle
+
+    [Header("Do Not Edit")]
+    [Header("------------------------")]
     [SerializeField] float fStartPos;                           // records starting POS of item from which to center movement
 
     // Start is called before the first frame update
