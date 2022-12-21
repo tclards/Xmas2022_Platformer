@@ -19,6 +19,10 @@ public class CollectableItemMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (transform.position.y > fStartPos + fMoveDistance || transform.position.y < fStartPos - fMoveDistance)
+        //{
+        //    transform.position = new Vector3(transform.position.x, fStartPos, transform.position.z);
+        //}
 
         Loop();
     }
@@ -26,6 +30,6 @@ public class CollectableItemMovement : MonoBehaviour
     private void Loop()
     {
         float yPos = Mathf.PingPong(Time.time * fMoveSpeed, 1) * fMoveDistance;
-        transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
+        transform.position = new Vector3(transform.position.x, (fStartPos + yPos), transform.position.z);
     }
 }
