@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerItemCollection : MonoBehaviour
 {
     [SerializeField] GameObject CollectionAnimation;
+    [SerializeField] private TextMeshProUGUI CoinCounterText;
     [Range(0f,10f)][SerializeField] private float WaitTime;
 
     [Header("Do Not Edit")]
@@ -22,6 +24,8 @@ public class PlayerItemCollection : MonoBehaviour
     private void Update()
     {
         CollectionAnimation.transform.position = playerPOS.position;
+
+        CoinCounterText.text = iCoins.ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
