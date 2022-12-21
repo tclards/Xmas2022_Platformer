@@ -1173,7 +1173,12 @@ MonoBehaviour:
   rb: {fileID: 868174300}
   anim: {fileID: 868174304}
   sp: {fileID: 868174301}
+  bc: {fileID: 868174299}
+  jumpableGround:
+    serializedVersion: 2
+    m_Bits: 64
   bIsGrounded: 0
+  movementState: 0
 --- !u!95 &868174304
 Animator:
   serializedVersion: 4
@@ -1208,7 +1213,7 @@ GameObject:
   - component: {fileID: 948462768}
   - component: {fileID: 948462767}
   - component: {fileID: 948462766}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

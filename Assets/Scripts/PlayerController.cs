@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer sp;
+    [SerializeField] private BoxCollider2D bc;
+
+    [Header("External References")]
+    [Header("---------------------------")]
+    [SerializeField] private LayerMask jumpableGround;
 
     [Header("Player Tracking Variables (Do Not Edit)")]
     [Header("---------------------------")]
@@ -42,7 +47,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
 
         // Jump Movement
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
         }
@@ -53,6 +58,11 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Helper Functions
+
+    private bool IsGrounded()
+    {
+        return Physics2D.BoxCast(bc.bounds.center, bc.bounds.size, 0f, Vector2.down, 0.1f, jumpableGround);
+    }
 
     private void UpdateAnimations()
     {
