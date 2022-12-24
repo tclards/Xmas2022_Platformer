@@ -31,6 +31,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool bIsGrounded;
     [SerializeField] private MovementState movementState;
 
+    [Header("Knockback Stats")]
+    [Header("---------------------------")]
+    [SerializeField] public float kbForce;
+    [SerializeField] public float kbTimer;
+    [SerializeField] public float kbTotalTime;
+    [SerializeField] public bool KnockFromRight;
+
     #endregion
 
     // Start is called before the first frame update
@@ -44,18 +51,34 @@ public class PlayerController : MonoBehaviour
     {
         bIsGrounded = IsGrounded();
 
-        // Horizontal Movement
-        dirX = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
-
-        // Jump Movement
-        if (Input.GetButtonDown("Jump") && bIsGrounded)
+        if (kbTimer <= 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
-        }
+            // Horizontal Movement
+            dirX = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
 
-        // Update Animations
-        UpdateAnimations();
+            // Jump Movement
+            if (Input.GetButtonDown("Jump") && bIsGrounded)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
+            }
+
+            // Update Animations
+            UpdateAnimations();
+        }
+        else
+        {
+            if (KnockFromRight == false)
+            {
+                rb.velocity = new Vector2(-kbForce, kbForce);
+            }
+            if (KnockFromRight == true)
+            {
+                rb.velocity = new Vector2(kbForce, kbForce);
+            }
+
+            kbTimer -= Time.deltaTime;
+        }
 
     }
 
