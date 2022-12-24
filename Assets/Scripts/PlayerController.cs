@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [Header("---------------------------")]
     [SerializeField] private bool bIsGrounded;
     [SerializeField] private MovementState movementState;
+    [SerializeField] public bool isDying;
 
     [Header("Knockback Stats")]
     [Header("---------------------------")]
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         bIsGrounded = IsGrounded();
 
-        if (kbTimer <= 0)
+        if (kbTimer <= 0 && !isDying)
         {
             // Horizontal Movement
             dirX = Input.GetAxisRaw("Horizontal");

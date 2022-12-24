@@ -43,14 +43,18 @@ public class PlayerLife : MonoBehaviour
     private void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        playerController.isDying = false;
     }
 
     IEnumerator Die()
     {
+        playerController.isDying = true;
+        anim.GetComponent<Animator>().speed = 0;
         rb.bodyType = RigidbodyType2D.Static;   // disable player movement 
 
         yield return new WaitForSeconds(1f);
 
+        anim.GetComponent<Animator>().speed = 1;
         anim.SetTrigger("Death");               // play death animation
 
         yield return new WaitForSeconds(0.5f);
