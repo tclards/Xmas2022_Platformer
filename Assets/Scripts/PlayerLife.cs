@@ -15,6 +15,7 @@ public class PlayerLife : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Trap Collisions
         if (collision.gameObject.CompareTag("Trap"))
         {
             anim.SetTrigger("TakeDamage");

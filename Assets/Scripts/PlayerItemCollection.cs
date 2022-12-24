@@ -12,6 +12,7 @@ public class PlayerItemCollection : MonoBehaviour
     [Header("Do Not Edit")]
     [Header("------------------------")]
     [SerializeField] Transform playerPOS;
+    [SerializeField] private PlayerStats ps;
     [SerializeField] private int iCoins = 0;
 
     private void Start()
@@ -30,11 +31,23 @@ public class PlayerItemCollection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Coin Collectables
         if (collision.gameObject.CompareTag("CoinCollectable"))
         {
             
             Destroy(collision.gameObject);  //destroy object
             iCoins++;   // count coins collected
+
+            // Play Animation for pickup
+            StartCoroutine(Wait());
+        }
+
+        // Health Pickup Collisions
+        if (collision.gameObject.CompareTag("HealthPickup"))
+        {
+            Destroy(collision.gameObject);
+
+            ps.Heal(1);
 
             // Play Animation for pickup
             StartCoroutine(Wait());
