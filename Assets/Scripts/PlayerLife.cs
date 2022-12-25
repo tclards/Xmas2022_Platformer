@@ -38,6 +38,12 @@ public class PlayerLife : MonoBehaviour
                 StartCoroutine(Die());
             }
         }
+
+        // Killbox collisions (for out of bounds)
+        if (collision.gameObject.CompareTag("KillBox"))
+        {
+            StartCoroutine(Die());
+        }
     }
 
     // Helper Functions:  
