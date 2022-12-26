@@ -13,6 +13,7 @@ public class PlayerItemCollection : MonoBehaviour
     [Header("------------------------")]
     [SerializeField] Transform playerPOS;
     [SerializeField] private PlayerStats ps;
+    [SerializeField] private PlayerController pc;
     [SerializeField] private int iCoins = 0;
 
     private void Start()
@@ -34,7 +35,8 @@ public class PlayerItemCollection : MonoBehaviour
         // Coin Collectables
         if (collision.gameObject.CompareTag("CoinCollectable"))
         {
-            
+            pc.sCoinCollect.Play(); // play pickup audio
+
             Destroy(collision.gameObject);  //destroy object
             iCoins++;   // count coins collected
 
@@ -43,8 +45,10 @@ public class PlayerItemCollection : MonoBehaviour
         }
 
         // Health Pickup Collisions
-        if (collision.gameObject.CompareTag("HealthPickup"))
+        if (collision.gameObject.CompareTag("HealthPickup") && ps.Health != ps.MaxHealth)
         {
+            pc.sHealthPickup.Play();
+
             Destroy(collision.gameObject);
 
             ps.Heal(1);

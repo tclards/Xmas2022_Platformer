@@ -39,6 +39,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float kbTotalTime;
     [SerializeField] public bool KnockFromRight;
 
+    [Header("SFX")]
+    [Header("---------------------------")]
+    [SerializeField] private AudioSource sJump;
+    [SerializeField] public AudioSource sCoinCollect;
+    [SerializeField] public AudioSource sDamageTaken;
+    [SerializeField] public AudioSource sDeath;
+    [SerializeField] public AudioSource sHealthPickup;
+
     #endregion
 
     // Start is called before the first frame update
@@ -62,6 +70,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Jump") && bIsGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
+                sJump.Play();
             }
 
             // Update Animations

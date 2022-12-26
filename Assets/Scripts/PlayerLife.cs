@@ -31,6 +31,7 @@ public class PlayerLife : MonoBehaviour
                 playerController.KnockFromRight = false;
             }
 
+            playerController.sDamageTaken.Play();
             ps.TakeDamage(1);
 
             if (ps.Health == 0)
@@ -55,6 +56,7 @@ public class PlayerLife : MonoBehaviour
 
     IEnumerator Die()
     {
+        playerController.sDeath.Play();
         playerController.isDying = true;
         anim.GetComponent<Animator>().speed = 0;
         rb.bodyType = RigidbodyType2D.Static;   // disable player movement 
