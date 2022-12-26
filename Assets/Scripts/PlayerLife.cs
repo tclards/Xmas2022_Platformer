@@ -69,25 +69,4 @@ public class PlayerLife : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-
-    
-
-
-    // bouncepad?
-    //IEnumerator Knockback(float knockbackDuration, float knockbackPower, Vector3 knockbackDirection)
-    //{
-    //    float fTimer = 0f;
-
-    //    while (knockbackDuration > fTimer)
-    //    {
-    //        fTimer += Time.deltaTime;
-
-    //        rb.velocity = new Vector2(0, 0);
-    //        rb.AddForce(new Vector3(-knockbackDirection.x, -knockbackDirection.y + knockbackPower, transform.position.z));
-
-    //    }
-
-    //    yield return 0;
-    //}
-
 }
