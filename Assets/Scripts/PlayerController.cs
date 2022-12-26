@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public AudioSource sDeath;
     [SerializeField] public AudioSource sHealthPickup;
     [SerializeField] private AudioSource sSecretFound;
+    [SerializeField] public AudioSource sGemCollect;
 
     #endregion
 

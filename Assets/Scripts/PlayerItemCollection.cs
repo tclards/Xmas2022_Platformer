@@ -7,6 +7,7 @@ public class PlayerItemCollection : MonoBehaviour
 {
     [SerializeField] GameObject CollectionAnimation;
     [SerializeField] private TextMeshProUGUI CoinCounterText;
+    [SerializeField] private TextMeshProUGUI GemCounterText;
     [Range(0f,10f)][SerializeField] private float WaitTime;
 
     [Header("Do Not Edit")]
@@ -15,6 +16,7 @@ public class PlayerItemCollection : MonoBehaviour
     [SerializeField] private PlayerStats ps;
     [SerializeField] private PlayerController pc;
     [SerializeField] private int iCoins = 0;
+    [SerializeField] private int iGems = 0;
 
     private void Start()
     {
@@ -28,6 +30,7 @@ public class PlayerItemCollection : MonoBehaviour
         CollectionAnimation.transform.position = playerPOS.position;
 
         CoinCounterText.text = iCoins.ToString();
+        GemCounterText.text = iGems.ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -39,6 +42,17 @@ public class PlayerItemCollection : MonoBehaviour
 
             Destroy(collision.gameObject);  //destroy object
             iCoins++;   // count coins collected
+
+            // Play Animation for pickup
+            StartCoroutine(Wait());
+        }
+
+        if (collision.gameObject.CompareTag("GemCollectable"))
+        {
+            pc.sGemCollect.Play();
+
+            Destroy(collision.gameObject);  //destroy object
+            iGems++;   // count gems collected
 
             // Play Animation for pickup
             StartCoroutine(Wait());
