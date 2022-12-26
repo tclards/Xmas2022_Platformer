@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public AudioSource sDamageTaken;
     [SerializeField] public AudioSource sDeath;
     [SerializeField] public AudioSource sHealthPickup;
+    [SerializeField] private AudioSource sSecretFound;
 
     #endregion
 
@@ -90,6 +91,15 @@ public class PlayerController : MonoBehaviour
             kbTimer -= Time.deltaTime;
         }
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("SecretFoundHitBox"))
+        {
+            sSecretFound.Play();
+            Destroy(collision.gameObject);
+        }
     }
 
     #region Helper Functions
