@@ -11,6 +11,8 @@ public class BouncePad : MonoBehaviour
     [SerializeField] private float bouncePower;
     [SerializeField] private AudioSource sBounceNoise;
     private Rigidbody2D rb;
+    //[SerializeField] private bool horizontalPad;
+    //[SerializeField] private bool RightBounce;
 
     private void Start()
     {
@@ -26,6 +28,15 @@ public class BouncePad : MonoBehaviour
             anim.SetTrigger("BouncePadContact");
 
             BouncePlayer(bounceDuration, bouncePower);
+
+            //if (horizontalPad == true)
+            //{
+            //    BouncePlayerToSide(bounceDuration, bouncePower);
+            //}
+            //else
+            //{
+            //    BouncePlayer(bounceDuration, bouncePower);
+            //}
         }
     }
 
@@ -43,28 +54,28 @@ public class BouncePad : MonoBehaviour
         {
             fTimer += Time.deltaTime;
 
-            rb.velocity = new Vector2(0, bouncePower);
+            rb.velocity = new Vector2(rb.velocity.x, bouncePower);
 
         }
-
     }
 
+    //private void BouncePlayerToSide(float bounceDuration, float bouncePower)
+    //{
+    //    float fTimer = 0f;
 
-    public IEnumerator BouncePadFunc(float bounceDuration, float bouncePower)
-    {
-        float fTimer = 0f;
+    //    while (bounceDuration > fTimer)
+    //    {
+    //        fTimer += Time.deltaTime;
 
-        Vector3 bounceDirection = new Vector3(0, transform.position.y, 0);
+    //        if (RightBounce)
+    //        {
+    //            rb.AddForce(new Vector2(-bouncePower * rb.velocity.x, rb.velocity.y), ForceMode2D.Impulse);
+    //        }
+    //        else
+    //        {
+    //            rb.AddForce(new Vector2(bouncePower * rb.velocity.x, rb.velocity.y), ForceMode2D.Impulse);
+    //        }
 
-        while (bounceDuration > fTimer)
-        {
-            fTimer += Time.deltaTime;
-
-            rb.velocity = new Vector2(0, 0);
-            rb.AddForce(new Vector3(-bounceDirection.x, -bounceDirection.y + bouncePower, transform.position.z));
-
-        }
-
-        yield return 0;
-    }
+    //    }
+    //}
 }
