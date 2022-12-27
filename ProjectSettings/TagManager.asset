@@ -5,6 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - CoinCollectable
+  - HealthPickup
+  - Trap
+  - BouncePad
+  - SecretFoundHitBox
+  - CollectionAnimation
+  - KillBox
+  - GemCollectable
+  - FallingPlatform
+  - FallingPlatformDestination
   layers:
   - Default
   - TransparentFX
