@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelWin : MonoBehaviour
 {
-
     AudioSource finishSound;
 
     // Start is called before the first frame update
@@ -18,13 +18,16 @@ public class LevelWin : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             finishSound.Play();
-            CompleteLevel();
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Static; 
+            rb.velocity = Vector3.zero;
+            Invoke("CompleteLevel", 2f);
         }
     }
 
     private void CompleteLevel()
     {
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }
