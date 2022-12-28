@@ -9,12 +9,17 @@ public class PlayerController : MonoBehaviour
 
     // Extra Player Tracking Variables
     private float dirX;
+    private float dirY;
     private enum MovementState { idle, running, jumping, falling };
 
     [Header("Player Attributes")]
     [Header("---------------------------")]
     [Range(5, 15)][SerializeField] int iJumpForce;                           // Player Jump Height
     [Range(5, 25)][SerializeField] float fMovementSpeed;                     // Player Movement Speed
+    [SerializeField] private float dashingVelocity;
+    [SerializeField] private float dashingTime;
+    private Vector2 dashingDir;
+
 
     [Header("Player Components")]
     [Header("---------------------------")]
@@ -22,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer sp;
     [SerializeField] private BoxCollider2D bc;
+    [SerializeField] private TrailRenderer trailRender;
 
     [Header("External References")]
     [Header("---------------------------")]
@@ -32,6 +38,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool bIsGrounded;
     [SerializeField] private MovementState movementState;
     [SerializeField] public bool isDying;
+    [SerializeField] private bool isDashing;
+    [SerializeField] private bool canDash = true;
+    [SerializeField] private bool xFlip;
 
     [Header("Knockback Stats")]
     [Header("---------------------------")]
@@ -61,6 +70,7 @@ public class PlayerController : MonoBehaviour
         {
             // Horizontal Movement
             dirX = Input.GetAxisRaw("Horizontal");
+            dirY = Input.GetAxisRaw("Vertical");
             rb.velocity = new Vector2(dirX * fMovementSpeed, rb.velocity.y);
 
             // Jump Movement
@@ -68,6 +78,39 @@ public class PlayerController : MonoBehaviour
             {
                 rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
                 sJump.Play();
+            }
+
+            //dash
+            if (Input.GetButtonDown("Dash") && canDash)
+            {
+                isDashing = true;
+                canDash = false;
+                trailRender.emitting = true;
+
+                dashingDir = new Vector2(dirX, dirY).normalized;
+                if (dashingDir == Vector2.zero)
+                {
+                    if (xFlip)
+                    {
+                        dashingDir = new Vector2(-transform.localScale.x, 0);
+                    }
+                    else if (!xFlip)
+                    {
+                        dashingDir = new Vector2(transform.localScale.x, 0);
+                    }
+                }
+
+                // stop dash
+                StartCoroutine(StopDashing());
+            }
+            if (isDashing)
+            {
+                rb.velocity = dashingDir.normalized * dashingVelocity;
+                return;
+            }
+            if (bIsGrounded)
+            {
+                canDash = true;
             }
 
             // Update Animations
@@ -114,11 +157,13 @@ public class PlayerController : MonoBehaviour
         {
             state = MovementState.running;
             sp.flipX = false;
+            xFlip = false;
         }
         else if (dirX < 0) // left
         {
             state = MovementState.running;
             sp.flipX = true;
+            xFlip = true;
         }
         else // idle
         {
@@ -135,6 +180,14 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.SetInteger("MovementState", (int)state);
+    }
+
+    private IEnumerator StopDashing()
+    {
+        yield return new WaitForSeconds(dashingTime);
+
+        trailRender.emitting = false;
+        isDashing = false;
     }
 
     #endregion
