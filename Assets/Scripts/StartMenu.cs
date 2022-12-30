@@ -7,6 +7,11 @@ public class StartMenu : MonoBehaviour
 {
     [SerializeField] public AudioSource clickSound;
 
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
+
     public void StartGame()
     {
         clickSound.Play();
@@ -33,6 +38,13 @@ public class StartMenu : MonoBehaviour
         clickSound.Play();
 
 
+    }
+
+    public void ReturnToStartMenu()
+    {
+        clickSound.Play();
+
+        SceneManager.LoadScene(0);
     }
 
 }

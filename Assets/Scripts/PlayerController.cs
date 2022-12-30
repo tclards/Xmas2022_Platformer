@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer sp;
     [SerializeField] private BoxCollider2D bc;
     [SerializeField] private TrailRenderer trailRender;
+    [SerializeField] private GameObject pauseMenu;
 
     [Header("External References")]
     [Header("---------------------------")]
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDashing;
     [SerializeField] private bool canDash = true;
     [SerializeField] private bool xFlip;
+    [SerializeField] private bool isPaused; 
 
     [Header("Knockback Stats")]
     [Header("---------------------------")]
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour
     {
         bIsGrounded = IsGrounded();
 
-        if (kbTimer <= 0 && !isDying)
+        if (kbTimer <= 0 && !isDying && !isPaused)
         {
             // Horizontal Movement
             dirX = Input.GetAxisRaw("Horizontal");
@@ -130,6 +133,22 @@ public class PlayerController : MonoBehaviour
             kbTimer -= Time.deltaTime;
         }
 
+        if (Input.GetButtonDown("Pause"))
+        {
+            if (!isPaused) // if not paused
+            {
+                Time.timeScale = 0f;
+                isPaused = true;
+                pauseGame();
+            }
+            else if (isPaused) // if paused
+            {
+                Time.timeScale = 1f;
+                isPaused = false;
+                unpauseGame();
+            }
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -188,6 +207,18 @@ public class PlayerController : MonoBehaviour
 
         trailRender.emitting = false;
         isDashing = false;
+    }
+
+    private void pauseGame()
+    {
+        rb.bodyType = RigidbodyType2D.Static;
+        pauseMenu.SetActive(true);
+    }
+
+    private void unpauseGame()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        pauseMenu.SetActive(false);
     }
 
     #endregion
