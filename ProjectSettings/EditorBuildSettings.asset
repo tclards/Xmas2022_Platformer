@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Original Demo Scenes/Demo2.unity
     guid: a8d1150911cac8c49b2b55683c17ed6c
+  - enabled: 1
+    path: Assets/Scenes/End Game Menu.unity
+    guid: 0929fb541b088274f889ed2b752284ae
   m_configObjects: {}
