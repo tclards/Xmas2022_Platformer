@@ -9,7 +9,7 @@ public class StartMenu : MonoBehaviour
 
     private void Start()
     {
-        Time.timeScale = 1f;
+
     }
 
     public void StartGame()
@@ -43,6 +43,8 @@ public class StartMenu : MonoBehaviour
     public void ReturnToStartMenu()
     {
         clickSound.Play();
+
+        Time.timeScale = 1f;
 
         SceneManager.LoadScene(0);
     }

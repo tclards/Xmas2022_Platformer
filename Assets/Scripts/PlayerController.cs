@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDashing;
     [SerializeField] private bool canDash = true;
     [SerializeField] private bool xFlip;
-    [SerializeField] private bool isPaused; 
+    [SerializeField] private bool isPaused = false; 
 
     [Header("Knockback Stats")]
     [Header("---------------------------")]
@@ -137,14 +137,10 @@ public class PlayerController : MonoBehaviour
         {
             if (!isPaused) // if not paused
             {
-                Time.timeScale = 0f;
-                isPaused = true;
                 pauseGame();
             }
             else if (isPaused) // if paused
             {
-                Time.timeScale = 1f;
-                isPaused = false;
                 unpauseGame();
             }
         }
@@ -211,12 +207,16 @@ public class PlayerController : MonoBehaviour
 
     private void pauseGame()
     {
+        Time.timeScale = 0f;
+        isPaused = true;
         rb.bodyType = RigidbodyType2D.Static;
         pauseMenu.SetActive(true);
     }
 
     private void unpauseGame()
     {
+        Time.timeScale = 1f;
+        isPaused = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
         pauseMenu.SetActive(false);
     }
