@@ -43,7 +43,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDashing;
     [SerializeField] private bool canDash = true;
     [SerializeField] private bool xFlip;
-    [SerializeField] private bool isPaused = false; 
+    [SerializeField] private bool isPaused = false;
+    [SerializeField] private bool doubleJumpEnabled = false;
 
     [Header("Knockback Stats")]
     [Header("---------------------------")]
@@ -145,6 +146,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (Input.GetButtonDown("Grapple") && doubleJumpEnabled == true)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            anim.enabled = false;
+        }
+        if (Input.GetButtonUp("Grapple") && doubleJumpEnabled == true)
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            anim.enabled = true;
+            rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
+            doubleJumpEnabled = false;
+            sJump.Play();
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -153,6 +169,22 @@ public class PlayerController : MonoBehaviour
         {
             sSecretFound.Play();
             Destroy(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("WallJumpPoint"))
+        {
+            doubleJumpEnabled = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("WallJumpPoint"))
+        {
+            doubleJumpEnabled = false;
         }
     }
 
