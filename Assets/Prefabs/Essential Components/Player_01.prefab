@@ -71,6 +71,7 @@ MonoBehaviour:
   sp: {fileID: 2805172303718190847}
   bc: {fileID: 2805172303718190841}
   trailRender: {fileID: 8843940708069464115}
+  pauseMenu: {fileID: 0}
   jumpableGround:
     serializedVersion: 2
     m_Bits: 64
@@ -80,6 +81,8 @@ MonoBehaviour:
   isDashing: 0
   canDash: 0
   xFlip: 0
+  isPaused: 0
+  doubleJumpEnabled: 0
   kbForce: 5
   kbTimer: 0
   kbTotalTime: 0.2

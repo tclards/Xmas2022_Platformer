@@ -14,6 +14,9 @@ TagManager:
   - GemCollectable
   - FallingPlatform
   - FallingPlatformDestination
+  - LevelWin
+  - Platform
+  - WallJumpPoint
   layers:
   - Default
   - TransparentFX
@@ -51,8 +54,14 @@ TagManager:
   - name: Bakground
     uniqueID: 49690291
     locked: 0
+  - name: Background Detail
+    uniqueID: 3675347871
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2131267519
     locked: 0
   - name: Terrain
     uniqueID: 1874858759
