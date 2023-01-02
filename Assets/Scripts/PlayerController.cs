@@ -158,6 +158,7 @@ public class PlayerController : MonoBehaviour
             anim.enabled = true;
             rb.velocity = new Vector2(rb.velocity.x, iJumpForce);
             doubleJumpEnabled = false;
+            anim.SetTrigger("GrappleJump");
             sJump.Play();
         }
 
